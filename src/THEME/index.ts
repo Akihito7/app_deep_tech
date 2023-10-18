@@ -2,6 +2,7 @@ export const THEME = {
     COLORS: {
         GRAY: {
             DARK: "#242424",
+            SEMIDARK : "#2C2C2C",
             MEDIUM: "#343434",
             LIGHT: "#B3B3B3"
         },
