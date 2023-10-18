@@ -6,6 +6,8 @@ import { THEME } from "../../THEME";
 import { FontAwesome, Entypo } from '@expo/vector-icons';
 import Logo from "../../../assets/logo.svg";
 
+import { CardBestSellers } from "../CardBestSellers";
+
 export function HeaderHome() {
 
     return (
@@ -46,8 +48,17 @@ export function HeaderHome() {
             <View style={styles.containerMoreSell}>
                 <Text style={styles.textMoreSell}>Mais vendidos</Text>
 
-                <ScrollView  horizontal>
-                   
+                <ScrollView 
+                 horizontal
+                 showsHorizontalScrollIndicator={false}
+                 >
+                   <CardBestSellers />
+                   <CardBestSellers />
+                   <CardBestSellers />
+                   <CardBestSellers />
+                   <CardBestSellers />
+                   <CardBestSellers />
+                   <CardBestSellers />
                 </ScrollView>
 
             </View>
