@@ -13,7 +13,7 @@ export function CardProducts() {
 
                 <Text style={styles.textName}>Iphone 13 de 128gb</Text>
                 <Text style={styles.textPrice}>R$ 3500</Text>
-                <Text style={styles.textPortion}>até 8 vezes de 437,5</Text>
+                <Text style={styles.textPortion}>até 8 vezes de 437,50</Text>
             </View>
 
         </View>
