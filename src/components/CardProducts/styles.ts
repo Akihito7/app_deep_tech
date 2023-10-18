@@ -6,12 +6,14 @@ export const styles = StyleSheet.create({
     container: {
         display: "flex",
         alignItems: "center",
-        width: RFValue(130),
+        width: RFValue(110),
+        
 
         borderRadius: 10,
 
         paddingBottom: 40,
         paddingHorizontal: 5,
+        marginRight: 10,
 
         backgroundColor: THEME.COLORS.GRAY.MEDIUM,
     },
@@ -26,14 +28,14 @@ export const styles = StyleSheet.create({
     textName: {
         color: THEME.COLORS.WHITE.LIGHT,
         fontFamily: THEME.FONTS.ROBOTO.MEDIUM,
-        fontSize: 18,
+        fontSize: 16,
 
     },
 
     textPrice: {
         color: "#E0E0E0",
         fontFamily: THEME.FONTS.ROBOTO.REGULAR,
-        fontSize: 16,
+        fontSize: 14,
 
     },
 
