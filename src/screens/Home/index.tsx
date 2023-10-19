@@ -11,36 +11,38 @@ const Products = ['1', '2', '3', '4', '5'];
 export function Home() {
     return (
         <View style={styles.container}>
-            <HeaderHome />
+            <ScrollView>
+                <HeaderHome />
 
 
-            <View style={styles.containerProducts}>
-                <FlatList
-                    data={Products}
-                    keyExtractor={item => item}
+                <View style={styles.containerProducts}>
+                    <FlatList
+                        data={Products}
+                        keyExtractor={item => item}
 
 
-                    horizontal
+                        horizontal
 
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({ item }) => (
-                        <CardProducts />
-                    )}
-                />
-
-
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item }) => (
+                            <CardProducts />
+                        )}
+                    />
 
 
-            </View>
 
-            <Text style={styles.textTopOffer}>
-                top ofertas :
-            </Text>
-            <View style={styles.containerTopOffer}>
 
-                <TopOffer />
-                <TopOffer />
-            </View>
+                </View>
+
+                <Text style={styles.textTopOffer}>
+                    top ofertas :
+                </Text>
+                <View style={styles.containerTopOffer}>
+
+                    <TopOffer />
+                    <TopOffer />
+                </View>
+            </ScrollView>
 
 
 
