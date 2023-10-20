@@ -4,6 +4,7 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 
 export const styles = StyleSheet.create({
     container: {
+        position: "relative",
         flex: 1,
         backgroundColor: THEME.COLORS.GRAY.DARK,
 

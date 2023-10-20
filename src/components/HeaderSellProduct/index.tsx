@@ -1,4 +1,5 @@
-import { View } from "react-native";
+import { View, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { styles } from "./style"
 import { THEME } from "../../THEME";
@@ -7,14 +8,27 @@ import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 export function HeaderSellProduct() {
 
+    const { navigate } = useNavigation();
+
+    const handleToGoBack = () => {
+        navigate("home");
+    }
+
+
     return (
         <View style={styles.container}>
 
-            <Ionicons
-                name="arrow-back-outline"
-                size={24}
-                color={THEME.COLORS.BLUE.DARK}
-            />
+            <TouchableOpacity
+                activeOpacity={0.5}
+                onPress={handleToGoBack}
+
+            >
+                <Ionicons
+                    name="arrow-back-outline"
+                    size={28}
+                    color={THEME.COLORS.BLUE.DARK}
+                />
+            </TouchableOpacity>
 
             <Logo />
 
