@@ -1,65 +1,133 @@
-import { View, Text, ScrollView, FlatList } from "react-native";
+import { useState, useEffect } from "react"
+import { View, Text, ScrollView, FlatList, ToastAndroid } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Animated, {
+    useAnimatedStyle,
+    useAnimatedScrollHandler,
+    useSharedValue,
+    interpolate,
+    Extrapolate,
+} from "react-native-reanimated"
+
 import { styles } from "./styles";
 
 import { HeaderHome } from "../../components/HeaderHome";
 import { CardProducts } from "../../components/CardProducts";
 import { TopOffer } from "../../components/TopOffer";
 import { HeaderOverlay } from "../../components/HeaderOverlay";
+import { api } from "../../axios";
 
 
-const Products = ['1', '2', '3', '4', '5'];
+
+type ProductsInfo = {
+    name: string;
+    information : string;
+    price: string;
+    imagem: string;
+    colors: string;
+};
+
 
 export function Home() {
 
     const { navigate } = useNavigation();
+    const [products, setProducts] = useState<[ProductsInfo]>();
+    const [produtsTopOffer, setProductsTopOffer] = useState([]);
 
-    const handleToGoSellProduct = () => {
-        navigate("sellProduct");
-    };
+    const sharedScrollY = useSharedValue(0);
+
+    const animatedStyleHeaderHome = useAnimatedStyle(() => ({
+        opacity: interpolate(sharedScrollY.value, [140, 180], [1, 0], Extrapolate.CLAMP)
+    }));
+
+    const animimatedStyleHeaderOverlay = useAnimatedStyle(() => ({
+        position: "absolute",
+        width: "100%",
+        height: 90,
+        zIndex: 1,
+        opacity: interpolate(sharedScrollY.value, [140, 190], [0, 1], Extrapolate.CLAMP)
+    }));
+
+    const scrollHandler = useAnimatedScrollHandler({
+        onScroll: (event) => {
+            sharedScrollY.value = event.contentOffset.y;
+        }
+    });
+
+    async function getProducts(){
+        try {
+            const response = await api.get("/products");
+            setProducts(response.data);
+
+            const PRODUCTS_APOIO = response.data;
+
+            setProductsTopOffer([]);
+
+            for (let i = 0 ; i < 2 ; i++){
+                setProductsTopOffer(prev => [...prev,PRODUCTS_APOIO[i]])
+            };
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getProducts();
+    },[])
+
+
 
     return (
-        <View style={styles.container}>
-            <ScrollView>
-
-                <HeaderHome />
-                
+        <>
+            <Animated.View style={[{ position: 'absolute' }, animimatedStyleHeaderOverlay]}>
                 <HeaderOverlay />
+            </Animated.View>
 
+            <View style={styles.container}>
+                <Animated.ScrollView onScroll={scrollHandler}>
 
-                <View style={styles.containerProducts}>
-                    <FlatList
-                        data={Products}
-                        keyExtractor={item => item}
-
-
-                        horizontal
-
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item }) => (
-                            <CardProducts
-                                handleToGoSellProduct={handleToGoSellProduct}
-                            />
-                        )}
-                    />
+                    <Animated.View style={animatedStyleHeaderHome}>
+                        <HeaderHome />
+                    </Animated.View>
 
 
 
-
-                </View>
-
-                <Text style={styles.textTopOffer}>
-                    top ofertas :
-                </Text>
-                <View style={styles.containerTopOffer}>
-
-                    <TopOffer />
-                    <TopOffer />
-                </View>
-            </ScrollView>
+                    <View style={styles.containerProducts}>
+                        <FlatList
+                            data={products}
+                            keyExtractor={item => item.name}
 
 
+                            horizontal
 
-        </View>
+                            showsHorizontalScrollIndicator={false}
+                            renderItem={({ item }) => (
+                                <CardProducts
+                                    productInfo={item}
+                                />
+                            )}
+                        />
+
+                    </View>
+
+                    <Text style={styles.textTopOffer}>
+                        top ofertas :
+                    </Text>
+
+                    <View style={styles.containerTopOffer}>
+
+                    {
+                       produtsTopOffer?.map(item => (
+                        <TopOffer item={item}/>
+                       ))
+                    }
+                    </View>
+                </Animated.ScrollView>
+
+
+
+            </View>
+        </>
     )
 }

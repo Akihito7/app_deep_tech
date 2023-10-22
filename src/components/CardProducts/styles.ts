@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
         display: "flex",
         alignItems: "center",
         width: RFValue(110),
-        
+
 
         borderRadius: 10,
 
@@ -36,6 +36,8 @@ export const styles = StyleSheet.create({
         color: "#E0E0E0",
         fontFamily: THEME.FONTS.ROBOTO.REGULAR,
         fontSize: 14,
+
+
 
     },
 
