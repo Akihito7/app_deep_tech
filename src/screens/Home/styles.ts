@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
         fontSize: 16,
 
         paddingHorizontal: 12,
+    
 
        paddingBottom: 11,
     },
@@ -32,6 +33,17 @@ export const styles = StyleSheet.create({
 
         justifyContent: "space-between",
         paddingHorizontal: 12,
+    },
+
+    youCanLikeThisText : {
+        color: THEME.COLORS.WHITE.LIGHT,
+        fontFamily: THEME.FONTS.ROBOTO.MEDIUM,
+        fontSize: 16,
+
+        paddingHorizontal: 12,
+    
+       marginTop: 40 ,
+       paddingBottom: 11,
     }
 
 })

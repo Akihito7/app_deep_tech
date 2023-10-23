@@ -5,6 +5,7 @@ import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from "@
 import { Lato_700Bold } from '@expo-google-fonts/lato';
 
 import { Routes } from './src/routes';
+import { ProductsByCategoriesProvider } from './src/contexts/ProductsByCategoriesContext';
 
 export default function App() {
 
@@ -14,11 +15,11 @@ export default function App() {
 
 
   return (
-    <>
+    <ProductsByCategoriesProvider>
       {
         fontsLoaded ? <Routes /> : <Text>Carregando fontes</Text>
       }
-    </>
+    </ProductsByCategoriesProvider>
   );
 }
 

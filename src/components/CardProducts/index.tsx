@@ -1,11 +1,15 @@
 import { View, Text, Image, TouchableOpacity } from "react-native"
 import { useNavigation } from "@react-navigation/native"
-import { styles } from "./styles"
 import { api } from "../../axios";
+
+import { styles } from "./styles"
+import Animated, { FadeInUp } from "react-native-reanimated";
+
 
 
 type CardProductsProps = {
     productInfo: ProductInfoProps;
+    index: number;
 }
 
 
@@ -19,7 +23,7 @@ type ProductInfoProps = {
 };
 
 
-export function CardProducts({ productInfo }: CardProductsProps) {
+export function CardProducts({ productInfo, index }: CardProductsProps) {
 
     const PORTION_PRICE = (Number(productInfo.price) / 8).toLocaleString("pt-BR", {
         style: "currency", currency: "EUR"
@@ -27,24 +31,31 @@ export function CardProducts({ productInfo }: CardProductsProps) {
 
     const { navigate } = useNavigation();
 
+    const TouchableOpacityAnimated = Animated.createAnimatedComponent(TouchableOpacity);
+
     function handleToGoSellProduct() {
         navigate("sellProduct", {
-            itemId : productInfo.id
+            itemId: productInfo.id
         });
     }
 
+    console.log(index)
+
     return (
 
-        <TouchableOpacity
+        <TouchableOpacityAnimated
+            entering={FadeInUp.delay(index * 100)}
             activeOpacity={0.5}
             onPress={handleToGoSellProduct}
         >
             <View style={styles.container}>
                 <Image source={{ uri: `${api.defaults.baseURL}/files/${productInfo.imagem}` }}
 
+                    height={100}
+                    width={100}
+
                     style={{
-                        width: "100%",
-                        height: 100,
+
                         objectFit: "contain",
                         marginVertical: 10,
                         marginHorizontal: 2,
@@ -73,6 +84,6 @@ export function CardProducts({ productInfo }: CardProductsProps) {
                 </View>
 
             </View>
-        </TouchableOpacity>
+        </TouchableOpacityAnimated>
     )
 }

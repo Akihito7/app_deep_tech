@@ -11,13 +11,19 @@ export const styles = StyleSheet.create({
 
         marginTop: 15,
         marginRight: 8,
+        borderWidth: 1,
+        borderColor : THEME.COLORS.BLUE.DARK,
+
 
 
         backgroundColor: THEME.COLORS.BLUE.DARK,
     },
 
     text: {
+       
         color: THEME.COLORS.WHITE.LIGHT,
-        fontFamily : THEME.FONTS.ROBOTO.MEDIUM
+        fontFamily: THEME.FONTS.ROBOTO.MEDIUM,
+        textTransform: "uppercase",
+
     }
 })

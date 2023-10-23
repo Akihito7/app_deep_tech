@@ -29,7 +29,6 @@ export function SellProduct() {
         try {
             const response = await api.get(`/products/${idItem}`)
             setItem(response.data);
-            console.log(response.data)
         } catch (error) {
             console.log(error)
         }
