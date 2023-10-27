@@ -3,9 +3,6 @@ import { useNavigation } from "@react-navigation/native"
 import { api } from "../../axios";
 
 import { styles } from "./styles"
-import Animated, { FadeInUp } from "react-native-reanimated";
-
-
 
 type CardProductsProps = {
     productInfo: ProductInfoProps;
@@ -31,20 +28,15 @@ export function CardProducts({ productInfo, index }: CardProductsProps) {
 
     const { navigate } = useNavigation();
 
-    const TouchableOpacityAnimated = Animated.createAnimatedComponent(TouchableOpacity);
-
     function handleToGoSellProduct() {
         navigate("sellProduct", {
             itemId: productInfo.id
         });
     }
 
-    console.log(index)
-
     return (
 
-        <TouchableOpacityAnimated
-            entering={FadeInUp.delay(index * 100)}
+        <TouchableOpacity
             activeOpacity={0.5}
             onPress={handleToGoSellProduct}
         >
@@ -84,6 +76,6 @@ export function CardProducts({ productInfo, index }: CardProductsProps) {
                 </View>
 
             </View>
-        </TouchableOpacityAnimated>
+        </TouchableOpacity>
     )
 }
