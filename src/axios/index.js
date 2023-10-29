@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL : "https://api-deep-tech.vercel.app"
+    baseURL : "http://192.168.1.61:7777"
 });

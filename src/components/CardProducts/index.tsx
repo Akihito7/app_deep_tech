@@ -35,14 +35,14 @@ export function CardProducts({ productInfo, index }: CardProductsProps) {
     }
 
     return (
-      
-            <TouchableOpacity
 
-                activeOpacity={0.5}
-                onPress={handleToGoSellProduct}
-            >
-                <View style={styles.container}>
-                    <Image source={{ uri: `${api.defaults.baseURL}/files/${productInfo.imagem}` }}
+        <TouchableOpacity
+           
+            activeOpacity={0.5}
+            onPress={handleToGoSellProduct}
+        >
+            <View style={styles.container}>
+                <Image source={{ uri: `${api.defaults.baseURL}/files/${productInfo.imagem}` }}
 
                         height={100}
                         width={100}
@@ -76,7 +76,7 @@ export function CardProducts({ productInfo, index }: CardProductsProps) {
                             style={styles.textPortion}>{`até 8 x de ${PORTION_PRICE}`}</Text>
                     </View>
 
-                </View>
-            </TouchableOpacity>
+            </View>
+        </TouchableOpacity>
     )
 }
