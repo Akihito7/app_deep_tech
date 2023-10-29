@@ -34,7 +34,6 @@ export function HeaderHome() {
         try {
             const response = await api.get("/products/category");
             setCategories(response.data);
-            console.log()
 
         } catch (error) {
             console.log(error)

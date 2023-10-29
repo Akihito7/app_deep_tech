@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "app_deep_tech",
+    "name": "Deep Tech",
     "slug": "app_deep_tech",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.akihito7.app_deep_tech"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0994bc2f-751a-4d21-9a72-f1e079e2b374"
+      }
     }
   }
 }

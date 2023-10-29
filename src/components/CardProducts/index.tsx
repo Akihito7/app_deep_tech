@@ -3,9 +3,6 @@ import { useNavigation } from "@react-navigation/native"
 import { api } from "../../axios";
 
 import { styles } from "./styles"
-import Animated, { FadeInUp } from "react-native-reanimated";
-
-
 
 type CardProductsProps = {
     productInfo: ProductInfoProps;
@@ -31,59 +28,55 @@ export function CardProducts({ productInfo, index }: CardProductsProps) {
 
     const { navigate } = useNavigation();
 
-    const TouchableOpacityAnimated = Animated.createAnimatedComponent(TouchableOpacity);
-
     function handleToGoSellProduct() {
         navigate("sellProduct", {
             itemId: productInfo.id
         });
     }
 
-    console.log(index)
-
     return (
+      
+            <TouchableOpacity
 
-        <TouchableOpacityAnimated
-            entering={FadeInUp.delay(index * 100)}
-            activeOpacity={0.5}
-            onPress={handleToGoSellProduct}
-        >
-            <View style={styles.container}>
-                <Image source={{ uri: `${api.defaults.baseURL}/files/${productInfo.imagem}` }}
+                activeOpacity={0.5}
+                onPress={handleToGoSellProduct}
+            >
+                <View style={styles.container}>
+                    <Image source={{ uri: `${api.defaults.baseURL}/files/${productInfo.imagem}` }}
 
-                    height={100}
-                    width={100}
+                        height={100}
+                        width={100}
 
-                    style={{
+                        style={{
 
-                        objectFit: "contain",
-                        marginVertical: 10,
-                        marginHorizontal: 2,
-                    }}
-                />
+                            objectFit: "contain",
+                            marginVertical: 10,
+                            marginHorizontal: 2,
+                        }}
+                    />
 
 
-                <View style={styles.containerInformations}>
+                    <View style={styles.containerInformations}>
 
-                    <Text
-                        style={styles.textName}
-                        numberOfLines={2}
-                    >
-                        {productInfo.name}
-                    </Text>
-                    <Text
-                        style={styles.textPrice}
+                        <Text
+                            style={styles.textName}
+                            numberOfLines={2}
+                        >
+                            {productInfo.name}
+                        </Text>
+                        <Text
+                            style={styles.textPrice}
 
-                    >
-                        {Number(productInfo.price).toLocaleString("pt-BR", {
-                            style: "currency", currency: "EUR"
-                        })}
-                    </Text>
-                    <Text
-                        style={styles.textPortion}>{`até 8 x de ${PORTION_PRICE}`}</Text>
+                        >
+                            {Number(productInfo.price).toLocaleString("pt-BR", {
+                                style: "currency", currency: "EUR"
+                            })}
+                        </Text>
+                        <Text
+                            style={styles.textPortion}>{`até 8 x de ${PORTION_PRICE}`}</Text>
+                    </View>
+
                 </View>
-
-            </View>
-        </TouchableOpacityAnimated>
+            </TouchableOpacity>
     )
 }

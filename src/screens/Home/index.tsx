@@ -116,10 +116,12 @@ export function Home() {
 
                                         showsHorizontalScrollIndicator={false}
                                         renderItem={({ item, index }) => (
+
                                             <CardProducts
                                                 index={index}
                                                 productInfo={item}
                                             />
+
                                         )}
                                     /> :
 

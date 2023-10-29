@@ -5,7 +5,9 @@ import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from "@
 import { Lato_700Bold } from '@expo-google-fonts/lato';
 
 import { Routes } from './src/routes';
+import { ShoppingCart } from './src/screens/ShoppingCart';
 import { ProductsByCategoriesProvider } from './src/contexts/ProductsByCategoriesContext';
+import { THEME } from './src/THEME';
 
 export default function App() {
 
@@ -17,7 +19,18 @@ export default function App() {
   return (
     <ProductsByCategoriesProvider>
       {
-        fontsLoaded ? <Routes /> : <Text>Carregando fontes</Text>
+        fontsLoaded
+          ?
+          <ShoppingCart />
+          :
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{
+              color: THEME.COLORS.BLUE.DARK,
+              fontSize: 22,
+            }}>
+              Carregando...
+            </Text>
+          </View>
       }
     </ProductsByCategoriesProvider>
   );

@@ -1,17 +1,21 @@
-import { View, Text, Image, Pressable } from "react-native";
-import { useRoute } from '@react-navigation/native';
-
 import { useEffect, useState } from "react";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import { useRoute } from '@react-navigation/native';
+import { api } from "../../axios";
+
+
+
 import { styles } from "./styles";
 import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import { HeaderSellProduct } from "../../components/HeaderSellProduct";
-import { api } from "../../axios";
 
+import { setItemAsyncStorage } from "../../utils/asyncStorage";
 
 type ItemProps = {
     id: string;
     imagem: string;
     information: string;
+    category: string;
     name: string;
     price: string;
     colors: string;
@@ -85,15 +89,18 @@ export function SellProduct() {
 
                     <View style={styles.lineSeparator}></View>
 
-                    <Pressable>
+                    <TouchableOpacity>
                         <Text style={styles.textGeneric}>Mais formas de pagamentos</Text>
-                    </Pressable>
+                    </TouchableOpacity>
                 </View>
 
-                <Pressable style={styles.buttonPayment}>
+                <TouchableOpacity
+                    style={styles.buttonPayment}
+                    onPress={() => setItemAsyncStorage(item)}
+                >
                     <FontAwesome5 name="shopping-basket" size={24} color="#B3B3B3" />
                     <Text style={styles.textPayment}>Comprar</Text>
-                </Pressable>
+                </TouchableOpacity>
 
 
             </View>
