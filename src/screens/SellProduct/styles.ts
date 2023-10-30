@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { THEME } from "../../THEME";
 
 export const styles = StyleSheet.create({
@@ -42,9 +42,9 @@ export const styles = StyleSheet.create({
     },
 
     containerPayment: {
-
-        flex: 1,
-        marginTop: 80,
+        flex : 1,
+        marginTop: 40,
+       
         display: "flex",
         justifyContent: "space-evenly",
 
@@ -56,6 +56,7 @@ export const styles = StyleSheet.create({
     },
 
     cardPayment: {
+        height: RFValue(150),
         display: "flex",
         backgroundColor: THEME.COLORS.GRAY.DARK,
         borderRadius: 20,
@@ -109,6 +110,7 @@ export const styles = StyleSheet.create({
     },
 
     buttonPayment: {
+        height: RFValue(60),
 
         display: "flex",
         flexDirection: 'row',
@@ -119,7 +121,8 @@ export const styles = StyleSheet.create({
 
         backgroundColor: THEME.COLORS.BLUE.DARK,
         borderRadius: 20,
-        paddingVertical: 20,
+        paddingVertical : 10,
+        
     },
 
     textPayment: {

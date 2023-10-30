@@ -5,7 +5,6 @@ import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from "@
 import { Lato_700Bold } from '@expo-google-fonts/lato';
 
 import { Routes } from './src/routes';
-import { ShoppingCart } from './src/screens/ShoppingCart';
 import { ProductsByCategoriesProvider } from './src/contexts/ProductsByCategoriesContext';
 import { THEME } from './src/THEME';
 
@@ -21,7 +20,7 @@ export default function App() {
       {
         fontsLoaded
           ?
-          <ShoppingCart />
+          <Routes />
           :
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text style={{

@@ -8,11 +8,15 @@ import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 export function HeaderSellProduct() {
 
-    const { navigate } = useNavigation();
+    const { navigate, goBack } = useNavigation();
 
     const handleToGoBack = () => {
-        navigate("home");
+        goBack();
     }
+
+    function handleToGoShoppingCart() {
+        navigate("shoppingCart");
+    };
 
 
     return (
@@ -32,11 +36,15 @@ export function HeaderSellProduct() {
 
             <Logo />
 
-            <FontAwesome
-                name="shopping-cart"
-                size={28}
-                color={THEME.COLORS.BLUE.DARK}
-            />
+
+            <TouchableOpacity onPress={handleToGoShoppingCart}>
+                <FontAwesome
+                    name="shopping-cart"
+                    size={28}
+                    color={THEME.COLORS.BLUE.DARK}
+                />
+
+            </TouchableOpacity>
 
         </View>
     )

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { View, Text, TextInput, ScrollView, } from "react-native";
+import { View, Text, TextInput, ScrollView, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { styles } from "./styles"
 import { THEME } from "../../THEME";
@@ -28,7 +29,13 @@ export function HeaderHome() {
 
     const [categories, setCategories] = useState<[ProductsProps]>();
 
-    const { getProductsByCategory, categorySelected } = useProductsByCategories()
+    const { getProductsByCategory, categorySelected } = useProductsByCategories();
+
+    const { navigate } = useNavigation();
+
+    function handleToGoShoppingCart() {
+        navigate("shoppingCart");
+    }
 
     async function getCategories() {
         try {
@@ -45,6 +52,7 @@ export function HeaderHome() {
     }, [])
 
     return (
+
         <View style={styles.container}>
 
             <View style={styles.containerIcons}>
@@ -56,11 +64,17 @@ export function HeaderHome() {
 
                 <Logo />
 
-                <FontAwesome
-                    name="shopping-cart"
-                    size={28}
-                    color={THEME.COLORS.BLUE.DARK}
-                />
+                <TouchableOpacity onPress={handleToGoShoppingCart}>
+
+                    <FontAwesome
+                        name="shopping-cart"
+                        size={28}
+                        color={THEME.COLORS.BLUE.DARK}
+                    />
+                </TouchableOpacity>
+
+
+
 
             </View>
 
@@ -94,8 +108,8 @@ export function HeaderHome() {
                                 key={index}
                                 isSelected={categorySelected === item.category}
                                 getProductsByCategory={() => getProductsByCategory(item.category)}
-                                
-                                
+
+
                                 category={item.category}
                             />
                         ))
@@ -105,5 +119,6 @@ export function HeaderHome() {
 
             </View>
         </View>
+
     )
 }

@@ -35,6 +35,7 @@ export async function getItensAsyncStorage() {
 };
 
 export async function deleteItemAsyncStorage(id: string) {
+    
     const itensString = await AsyncStorage.getItem(asyncStorageItemName);
 
     const itensParse = itensString ? JSON.parse(itensString) : [];

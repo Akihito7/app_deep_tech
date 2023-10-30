@@ -4,6 +4,7 @@ const { Navigator, Screen } = createNativeStackNavigator();
 
 import { Home } from "../screens/Home";
 import { SellProduct } from "../screens/SellProduct";
+import { ShoppingCart } from "../screens/ShoppingCart";
 
 export function AppRoutes() {
     return (
@@ -18,6 +19,11 @@ export function AppRoutes() {
             <Screen
                 name="sellProduct"
                 component={SellProduct}
+            />
+
+            <Screen
+                name="shoppingCart"
+                component={ShoppingCart}
             />
         </Navigator>
     )

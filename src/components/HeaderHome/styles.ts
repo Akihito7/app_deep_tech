@@ -5,11 +5,11 @@ import { THEME } from "../../THEME";
 
 export const styles = StyleSheet.create({
     container: {
-
-        height: RFPercentage(35),
+       
+        height: RFPercentage(39),
         backgroundColor: THEME.COLORS.GRAY.MEDIUM,
 
-        paddingTop: 50,
+        paddingTop: 75,
         paddingHorizontal: 20,
 
         borderBottomRightRadius: 50,

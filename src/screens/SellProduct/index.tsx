@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useRoute } from '@react-navigation/native';
+
 import { api } from "../../axios";
+import { setItemAsyncStorage } from "../../utils/asyncStorage"
 
-
+import ToastAndroid  from "react-native/Libraries/Components/ToastAndroid/ToastAndroid";
 
 import { styles } from "./styles";
 import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import { HeaderSellProduct } from "../../components/HeaderSellProduct";
 
-import { setItemAsyncStorage } from "../../utils/asyncStorage";
+import { useNavigation } from "@react-navigation/native";
+
 
 type ItemProps = {
     id: string;
@@ -28,6 +31,8 @@ export function SellProduct() {
     const routeParams = useRoute();
     const idItem = routeParams.params.itemId;
 
+    const { navigate } = useNavigation();
+
 
     async function getItem() {
         try {
@@ -37,6 +42,20 @@ export function SellProduct() {
             console.log(error)
         }
     };
+
+    function addItemAsyncStorage(item : ItemProps){
+        try {
+            setItemAsyncStorage(item)
+
+            ToastAndroid.show("Item adicionado ao carrinho", 2)
+        } catch (error) {
+            
+        }
+    };
+
+    function handleToGoShoppingCart(){
+
+    }
 
     useEffect(() => {
         getItem();
@@ -96,10 +115,10 @@ export function SellProduct() {
 
                 <TouchableOpacity
                     style={styles.buttonPayment}
-                    onPress={() => setItemAsyncStorage(item)}
+                    onPress={() => addItemAsyncStorage(item)}
                 >
                     <FontAwesome5 name="shopping-basket" size={24} color="#B3B3B3" />
-                    <Text style={styles.textPayment}>Comprar</Text>
+                    <Text style={styles.textPayment}>Adicionar</Text>
                 </TouchableOpacity>
 
 

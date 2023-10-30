@@ -43,6 +43,7 @@ export function Home() {
 
     const sharedScrollY = useSharedValue(0);
 
+
     const animatedStyleHeaderHome = useAnimatedStyle(() => ({
         opacity: interpolate(sharedScrollY.value, [140, 180], [1, 0], Extrapolate.CLAMP)
     }));
