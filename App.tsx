@@ -6,6 +6,7 @@ import { Lato_700Bold } from '@expo-google-fonts/lato';
 
 import { Routes } from './src/routes';
 import { ProductsByCategoriesProvider } from './src/contexts/ProductsByCategoriesContext';
+import { ProductsByNameContextProvider } from "./src/contexts/ProductsByNameContext"
 import { THEME } from './src/THEME';
 
 export default function App() {
@@ -16,22 +17,24 @@ export default function App() {
 
 
   return (
-    <ProductsByCategoriesProvider>
-      {
-        fontsLoaded
-          ?
-          <Routes />
-          :
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{
-              color: THEME.COLORS.BLUE.DARK,
-              fontSize: 22,
-            }}>
-              Carregando...
-            </Text>
-          </View>
-      }
-    </ProductsByCategoriesProvider>
+    <ProductsByNameContextProvider>
+      <ProductsByCategoriesProvider>
+        {
+          fontsLoaded
+            ?
+            <Routes />
+            :
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{
+                color: THEME.COLORS.BLUE.DARK,
+                fontSize: 22,
+              }}>
+                Carregando...
+              </Text>
+            </View>
+        }
+      </ProductsByCategoriesProvider>
+    </ProductsByNameContextProvider>
   );
 }
 

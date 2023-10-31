@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { View, Text, ScrollView, FlatList, ToastAndroid } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Animated, {
@@ -9,7 +9,10 @@ import Animated, {
     Extrapolate,
 } from "react-native-reanimated"
 
+import { RFValue } from "react-native-responsive-fontsize";
+
 import { useProductsByCategories } from "../../contexts/ProductsByCategoriesContext";
+import { useContextSearchByName } from "../../contexts/ProductsByNameContext";
 
 import { styles } from "./styles";
 
@@ -38,8 +41,12 @@ export function Home() {
     const [products, setProducts] = useState<[ProductsInfo]>();
     const [produtsTopOffer, setProductsTopOffer] = useState([]);
 
+    const flatListRef = useRef(null);
+
+
 
     const { productsByCategories, isCategorySelect } = useProductsByCategories();
+    const { productsByName } = useContextSearchByName();
 
     const sharedScrollY = useSharedValue(0);
 
@@ -84,6 +91,25 @@ export function Home() {
         getProducts();
     }, [])
 
+    useEffect(() => {
+        const scrollToIndexZero = () => {
+            if (productsByName.length > 0 && flatListRef.current) {
+                flatListRef.current.scrollToIndex({ animated: true, index: 0 });
+            }
+            else {
+
+                if (productsByCategories) {
+                    if (productsByCategories?.length > 0 && flatListRef.current) {
+                        flatListRef.current.scrollToIndex({ animated: true, index: 0 });
+                    }
+                }
+
+            }
+        }
+        
+        scrollToIndexZero();
+    }, [productsByName, productsByCategories])
+
 
 
     return (
@@ -103,36 +129,15 @@ export function Home() {
 
                     <View style={styles.containerProducts}>
 
-                        <View style={{ height: 270 }}>
-
+                        <View style={{ height: RFValue(230) }}>
 
                             {
-                                isCategorySelect ?
+                                productsByName.length > 0 ?
                                     <FlatList
-                                        data={productsByCategories}
+                                        ref={flatListRef}
+                                        data={productsByName}
                                         keyExtractor={item => item.id}
-
-
                                         horizontal
-
-                                        showsHorizontalScrollIndicator={false}
-                                        renderItem={({ item, index }) => (
-
-                                            <CardProducts
-                                                index={index}
-                                                productInfo={item}
-                                            />
-
-                                        )}
-                                    /> :
-
-                                    <FlatList
-                                        data={products}
-                                        keyExtractor={item => item.id}
-
-
-                                        horizontal
-
                                         showsHorizontalScrollIndicator={false}
                                         renderItem={({ item, index }) => (
                                             <CardProducts
@@ -141,9 +146,36 @@ export function Home() {
                                             />
                                         )}
                                     />
-
-
+                                    :
+                                    isCategorySelect ?
+                                        <FlatList
+                                            ref={flatListRef}
+                                            data={productsByCategories}
+                                            keyExtractor={item => item.id}
+                                            horizontal
+                                            showsHorizontalScrollIndicator={false}
+                                            renderItem={({ item, index }) => (
+                                                <CardProducts
+                                                    index={index}
+                                                    productInfo={item}
+                                                />
+                                            )}
+                                        />
+                                        :
+                                        <FlatList
+                                            data={products}
+                                            keyExtractor={item => item.id}
+                                            horizontal
+                                            showsHorizontalScrollIndicator={false}
+                                            renderItem={({ item, index }) => (
+                                                <CardProducts
+                                                    index={index}
+                                                    productInfo={item}
+                                                />
+                                            )}
+                                        />
                             }
+
 
                         </View>
 

@@ -8,7 +8,7 @@ import { FontAwesome, Ionicons } from "@expo/vector-icons";
 
 export function HeaderShoppingCart() {
 
-    const { navigate , goBack} = useNavigation();
+    const { goBack} = useNavigation();
 
     function handleToGoBack() {
         goBack();

@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
         display: "flex",
         alignItems: "center",
         width: RFValue(110),
+        height : RFValue(230),
 
 
         borderRadius: 10,

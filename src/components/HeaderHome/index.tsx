@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { View, Text, TextInput, ScrollView, TouchableOpacity } from "react-native";
+
 import { useNavigation } from "@react-navigation/native";
-
-import { styles } from "./styles"
-import { THEME } from "../../THEME";
-
-import { FontAwesome, Entypo } from '@expo/vector-icons';
-import Logo from "../../../assets/logo.svg";
-
-import { CardBestSellers } from "../CardBestSellers";
 import { api } from "../../axios";
 import { useProductsByCategories } from "../../contexts/ProductsByCategoriesContext";
 
+import { styles } from "./styles"
+import { THEME } from "../../THEME";
+import Logo from "../../../assets/logo.svg";
+import { CardBestSellers } from "../CardBestSellers";
+import { FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
+
+import { Controller, useForm } from "react-hook-form"
+import { useContextSearchByName } from "../../contexts/ProductsByNameContext";
 
 type ProductsProps = {
     id: string;
@@ -28,10 +29,15 @@ type ProductsProps = {
 export function HeaderHome() {
 
     const [categories, setCategories] = useState<[ProductsProps]>();
+    const [showCloseIcon, setShowCloseIcon] = useState(false);
 
     const { getProductsByCategory, categorySelected } = useProductsByCategories();
 
     const { navigate } = useNavigation();
+
+    const { control, handleSubmit, getValues, setValue } = useForm();
+
+    const { setProductsByName } = useContextSearchByName();
 
     function handleToGoShoppingCart() {
         navigate("shoppingCart");
@@ -45,6 +51,25 @@ export function HeaderHome() {
         } catch (error) {
             console.log(error)
         }
+    };
+
+    async function handleSearchProduct({ name }: { name: string }) {
+        setShowCloseIcon(true);
+
+        try {
+            const response = await api.get(`products/by-name/${name}`);
+
+            setProductsByName(response.data)
+
+        } catch (error) {
+            console.log("ERRO DO REQUEST BY NAME => ", error)
+        }
+    }
+
+    function handleDeleteSearch(campo: string) {
+        setShowCloseIcon(false);
+        setValue(campo, null);
+        setProductsByName([]);
     };
 
     useEffect(() => {
@@ -73,23 +98,53 @@ export function HeaderHome() {
                     />
                 </TouchableOpacity>
 
-
-
-
             </View>
 
             <View style={styles.containerInput}>
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="Pesquise seu produto aqui"
-                    placeholderTextColor={THEME.COLORS.GRAY.LIGHT}
+                <Controller
+                    name={"name"}
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Pesquise seu produto aqui"
+                            placeholderTextColor={THEME.COLORS.GRAY.LIGHT}
+                            onChangeText={onChange}
+                            value={value}
+
+                        />
+                    )
+                    }
                 />
-                <Entypo
-                    name="magnifying-glass"
-                    size={28}
-                    color={THEME.COLORS.BLUE.DARK}
-                />
+
+
+                {
+                    showCloseIcon
+                        ?
+
+                        <TouchableOpacity onPress={() => { handleDeleteSearch("name") }}>
+                            <AntDesign
+                                name="closecircle"
+                                size={28}
+                                color={THEME.COLORS.BLUE.DARK}
+                            />
+                        </TouchableOpacity>
+
+                        :
+
+                        <TouchableOpacity onPress={handleSubmit(handleSearchProduct)}>
+                            <Entypo
+                                name="magnifying-glass"
+                                size={28}
+                                color={THEME.COLORS.BLUE.DARK}
+                            />
+                        </TouchableOpacity>
+                }
+
+
+
 
             </View>
 
